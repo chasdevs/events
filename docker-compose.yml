@@ -1,0 +1,90 @@
+---
+version: '2.4'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:5.1.2
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    healthcheck:
+      test: echo stat | nc localhost 2181
+      interval: 2s
+      timeout: 1s
+      retries: 10
+
+  broker:
+    image: confluentinc/cp-enterprise-kafka:5.1.2
+    depends_on:
+      zookeeper: {condition: service_healthy}
+    ports:
+    - '19092:19092'
+    - '29092:29092'
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:9092,HOST://localhost:29092,DOCKER://host.docker.internal:19092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,HOST:PLAINTEXT,DOCKER:PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_NUM_PARTITIONS: 3
+    healthcheck:
+      # test: nc localhost 29092
+      test: ps augwwx | egrep [S]upportedKafka
+      interval: 2s
+      timeout: 1s
+      retries: 10
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:5.1.2
+    depends_on:
+      zookeeper: {condition: service_healthy}
+      broker: {condition: service_healthy}
+    ports:
+    - '8081:8081'
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'zookeeper:2181'
+    healthcheck:
+      test: curl --fail localhost:8081
+      interval: 2s
+      timeout: 1s
+      retries: 20
+
+  rest-proxy:
+    image: confluentinc/cp-kafka-rest:5.1.2
+    depends_on:
+      broker: {condition: service_healthy}
+      schema-registry: {condition: service_healthy}
+    ports:
+    - 8082:8082
+    - 8083:8083
+    volumes:
+    - ./docker/local-certs:/opt/certs
+    environment:
+      KAFKA_REST_HOST_NAME: rest-proxy
+      KAFKA_REST_BOOTSTRAP_SERVERS: 'broker:9092'
+      KAFKA_REST_SCHEMA_REGISTRY_URL: 'http://schema-registry:8081'
+      KAFKA_REST_LISTENERS: 'http://0.0.0.0:8082,https://0.0.0.0:8083'
+      KAFKA_REST_SSL_KEYSTORE_LOCATION: '/opt/certs/keystore.pkcs12'
+      KAFKA_REST_SSL_KEYSTORE_PASSWORD: 'password'
+      KAFKA_REST_SSL_KEYSTORE_TYPE: 'PKCS12'
+      KAFKA_REST_SSL_KEY_PASSWORD: 'password'
+      KAFKA_REST_ACCESS_CONTROL_ALLOW_ORIGIN: '*'
+      KAFKA_REST_ACCESS_CONTROL_ALLOW_METHODS: 'GET,POST,PUT,DELETE,HEAD'
+      KAFKA_REST_CONSUMER_REQUEST_TIMEOUT_MS:
+    
+  schema-ui:
+    image: landoop/schema-registry-ui
+    depends_on: [schema-registry]
+    ports: [8000:8000]
+    environment:
+      SCHEMAREGISTRY_URL: http://schema-registry:8081
+      PROXY: 'true'
+
+  topics-ui:
+    image: landoop/kafka-topics-ui
+    depends_on: [broker, rest-proxy]
+    ports: [8001:8000]
+    environment:
+      KAFKA_REST_PROXY_URL: rest-proxy:8082
+      PROXY: 'true'
+      MAX_BYTES:
+      RECORD_POLL_TIMEOUT:

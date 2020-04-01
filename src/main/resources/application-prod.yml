@@ -1,0 +1,16 @@
+logging:
+  level:
+    org:
+      springframework: error
+    com:
+      github: error
+
+spring:
+  main:
+    banner-mode: "off"
+
+schema-registry:
+  url: https://prod.schema.registry.com
+  identityMapLimit: 512
+  username: username
+  password: password

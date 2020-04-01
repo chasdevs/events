@@ -1,0 +1,67 @@
+{
+  "type" : "record",
+  "name" : "ClickEvent",
+  "namespace" : "example.clickevent",
+  "fields" : [ {
+    "name" : "meta",
+    "type" : {
+      "type" : "record",
+      "name" : "SchemaMeta",
+      "namespace" : "example.common.meta",
+      "fields" : [ {
+        "name" : "eventUuid",
+        "type" : "string"
+      }, {
+        "name" : "eventOrigin",
+        "type" : "string"
+      }, {
+        "name" : "emittedAt",
+        "type" : {
+          "type" : "long",
+          "logicalType" : "timestamp-millis"
+        }
+      } ]
+    }
+  }, {
+    "name" : "action",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "category",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "label",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "pageUrlPattern",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "pageUuid",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "userSubscriptionId",
+    "type" : "int"
+  }, {
+    "name" : "newField",
+    "type" : "int"
+  }, {
+    "name" : "visitorCookie",
+    "type" : {
+      "type" : "record",
+      "name" : "VisitorCookie",
+      "namespace" : "example.common.visitorcookie",
+      "fields" : [ {
+        "name" : "id",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "keyword",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "SGUID",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "SSLID",
+        "type" : [ "null", "string" ]
+      } ]
+    }
+  } ]
+}

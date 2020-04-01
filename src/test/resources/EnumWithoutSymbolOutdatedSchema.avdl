@@ -1,0 +1,8 @@
+protocol Events {
+
+  @namespace("example")
+  enum EnumWithoutSymbolOutdatedSchema {
+    FIRST_VALUE,
+    SECOND_VALUE
+  } = SECOND_VALUE;
+}

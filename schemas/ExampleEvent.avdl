@@ -1,0 +1,29 @@
+protocol Events {
+
+  import idl "./common/Meta.avdl";
+
+  @namespace("example")
+  record ExampleEvent {
+
+    example.common.Meta meta;
+
+    // required int
+    int x;
+
+    // float with default
+    float y = 0.0;
+
+    // nullable string
+    union { null, string } foo;
+
+    // string with a default
+    string bar = "BAR BAR";
+
+    // boolean
+    boolean active = true;
+
+    // double...
+    double money = 0.0;
+
+  }
+}

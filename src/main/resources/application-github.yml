@@ -1,0 +1,10 @@
+logging:
+  level:
+    org:
+      springframework: error
+    com:
+      github: error
+
+spring:
+  main:
+    banner-mode: "off"

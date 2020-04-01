@@ -1,0 +1,9 @@
+protocol Events {
+
+  @namespace("example.common")
+  record Meta {
+    string eventUuid;
+    string eventOrigin;
+    timestamp_ms emittedAt;
+  }
+}

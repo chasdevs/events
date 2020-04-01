@@ -1,0 +1,16 @@
+protocol Events {
+
+  @namespace("example.common")
+  enum Origin {
+    SITE_ONE,
+    SITE_TWO,
+    OUTDATED_SCHEMA
+  } = OUTDATED_SCHEMA;
+
+  @namespace("example.common")
+  record Meta {
+    string uuid;
+    timestamp_ms emitted;
+    Origin origin;
+  }
+}

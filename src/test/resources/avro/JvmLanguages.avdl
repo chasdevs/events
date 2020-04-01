@@ -1,0 +1,12 @@
+protocol Events {
+
+  @namespace("example")
+  enum JvmLanguages {
+    JAVA,
+    SCALA,
+    GROOVY,
+    KOTLIN,
+    OUTDATED_SCHEMA
+  } = OUTDATED_SCHEMA;
+
+}

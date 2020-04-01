@@ -1,0 +1,9 @@
+protocol Events {
+
+  @namespace("example")
+  enum EnumWithoutDefaultValue {
+    FIRST_VALUE,
+    SECOND_VALUE,
+    OUTDATED_SCHEMA
+  }
+}

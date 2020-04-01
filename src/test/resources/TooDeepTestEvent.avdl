@@ -1,0 +1,18 @@
+protocol Events {
+
+  import idl "../../../../common/Meta.avdl";
+
+  @namespace("example.content.video.too.deep")
+  record TooDeepTestEvent {
+    example.common.Meta meta;
+
+    //todo: are these all REALLY nullable?
+    union { null, string } action;
+    union { null, string } category;
+    union { null, string } label;
+    union { null, string } pageUrlPattern;
+    union { null, string } pageUuid;
+    int userSubscriptionId;
+
+  }
+}

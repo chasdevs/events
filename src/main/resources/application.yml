@@ -1,0 +1,8 @@
+schema-registry:
+  url: http://localhost:8081/
+  username:
+  password:
+  identityMapLimit: 512
+local-repo:
+  rootPath: schemas
+  allowedNamespaceDepth: 8

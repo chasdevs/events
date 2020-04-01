@@ -1,0 +1,15 @@
+protocol Events {
+
+  import idl "./common/Meta.avdl";
+
+  @namespace("example")
+  record ClickEvent {
+    example.common.Meta meta;
+
+    //a nullable string
+    union { null, string } foo;
+    //a non-nullable string
+    string bar;
+
+  }
+}
