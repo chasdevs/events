@@ -8,8 +8,8 @@ services:
     build: ./action-publish-php
     extends:
       service: base
-  tag:
-    build: ./action-tag
+  validate:
+    build: ./action-validate
     extends:
       service: base
 

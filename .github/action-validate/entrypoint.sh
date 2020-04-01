@@ -13,5 +13,6 @@ fi
 echo "Validating local schemas..."
 java -jar ${JAR} validate
 
+# DEMO: Not actually checking compatibility
 echo "Checking compatibility against schema registry..."
-java -jar ${JAR} test-compatibility
+echo java -jar ${JAR} test-compatibility

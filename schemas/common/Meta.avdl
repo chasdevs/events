@@ -4,6 +4,7 @@ protocol Events {
   enum Origin {
     SITE_ONE,
     SITE_TWO,
+    SITE_THREE,
     OUTDATED_SCHEMA
   } = OUTDATED_SCHEMA;
 
