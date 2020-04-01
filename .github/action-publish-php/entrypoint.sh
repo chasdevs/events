@@ -43,6 +43,7 @@ function main() {
 }
 
 function auth_github() {
+    #TODO: Use the new method https://help.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token
     # The git CLI is used to interact with the events-ts repo.
     # To avoid the need for user interaction, the private github deploy key for the repository is added and github.com must be added to known_hosts.
     echo "Authorizing SSH connection to github.com using known hosts and base64-encoded ssh private deploy key..."

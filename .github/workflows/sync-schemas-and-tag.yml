@@ -23,4 +23,4 @@ jobs:
     - name: Create Tag
       uses: ./.github/action-tag
       env:
-        BASE64_SSH_PRIVATE_KEY: ${{ secrets.BASE64_SSH_PRIVATE_KEY }}
+        BASE64_SSH_PRIVATE_KEY: ${{ secrets.BASE64_SSH_PRIVATE_KEY_EVENTS }}
