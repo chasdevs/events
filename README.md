@@ -52,3 +52,8 @@ the schemas in the local repo are:
 
 Once your schema updates have been merged and released you can pull in the latest packages/artifacts using 
 your preferred dependency management tool.
+
+### Contributors
+
+- @rewindyourvideos
+- @chasdevs
