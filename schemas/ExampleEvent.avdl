@@ -20,7 +20,7 @@ protocol Events {
     string bar = "BAR BAR";
 
     // boolean
-    boolean active = true;
+    boolean active = false;
 
     // double...
     double money = 0.0;
