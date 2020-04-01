@@ -1,0 +1,26 @@
+name: Sync Schemas and Tag
+
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'schemas/*'
+      - 'schemas/*/*'
+      - 'schemas/*/*/*'
+      - 'schemas/*/*/*/*'
+
+jobs:
+  sync_schemas_and_tag:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: git fetch --unshallow
+    - name: Validate Schemas
+      uses: ./.github/action-validate/
+    - name: Sync Schemas
+      uses: ./.github/action-sync
+    - name: Create Tag
+      uses: ./.github/action-tag
+      env:
+        BASE64_SSH_PRIVATE_KEY: ${{ secrets.BASE64_SSH_PRIVATE_KEY }}

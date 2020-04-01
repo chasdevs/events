@@ -1,0 +1,33 @@
+name: Publish Event Libraries
+
+on: 
+  push:
+    tags:
+      - '[0-9]*'
+
+jobs:
+  publish_php:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Compile AVSC
+        uses: docker://gradle:5.4.1-jdk12
+        with:
+          args: gradle generateAvsc
+      - name: Publish PHP
+        uses: ./.github/action-publish-php
+        env:
+          BASE64_SSH_PRIVATE_KEY: ${{ secrets.BASE64_SSH_PRIVATE_KEY_PHP }}
+  publish_typescript:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Compile AVSC
+        uses: docker://gradle:5.4.1-jdk12
+        with:
+          args: gradle generateAvsc
+      - name: Publish Typescript
+        uses: ./.github/action-publish-ts
+        env:
+          BASE64_SSH_PRIVATE_KEY: ${{ secrets.BASE64_SSH_PRIVATE_KEY_TS }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

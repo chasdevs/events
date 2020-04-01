@@ -1,0 +1,21 @@
+name: Validate Schemas
+on:
+  push:
+    branches:
+      - '*'
+      - '*/*'
+      - '*/*/*'
+      - '!master'
+    paths:
+      - 'schemas/*'
+      - 'schemas/*/*'
+      - 'schemas/*/*/*'
+      - 'schemas/*/*/*/*'
+
+jobs:
+  validate_schemas:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Validate Schemas
+      uses: ./.github/action-validate/

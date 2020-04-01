@@ -1,0 +1,25 @@
+version: '2'
+services:
+  publish-ts:
+    build: ./action-publish-ts
+    extends:
+      service: base
+  publish-php:
+    build: ./action-publish-php
+    extends:
+      service: base
+  tag:
+    build: ./action-tag
+    extends:
+      service: base
+
+  # Other services extend base
+  base:
+    build: .
+    volumes:
+      - ../:/app
+    working_dir: /app
+    environment:
+      GITHUB_REF: refs/tags/1
+      BASE64_SSH_PRIVATE_KEY:
+      NPM_TOKEN:
